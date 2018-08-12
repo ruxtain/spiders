@@ -37,6 +37,9 @@ class MasterThread(threading.Thread):
             imgs = soup.select('div.chao div.yang > img.scaleimg')
             for img in imgs:
                 self.queue.put(img['src'])
+        # 不立即退出，而是等待队列为空
+        while not self.queue.empty():
+            break
 
 
 class SlaveThread(threading.Thread):

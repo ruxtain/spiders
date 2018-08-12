@@ -3,6 +3,7 @@
 
 import requests
 import json
+import os
 
 # 请求 json 的头
 raw_headers = """Accept: application/json
@@ -55,6 +56,7 @@ def get_images_from_pin(last_pin, base_url):
 
 
 def main():
+    os.makedirs('images', exist_ok=True)
     base_url = 'http://huaban.com/favorite/beauty?jkkeugp4&max={}&limit=20&wfl=1'
     last_pin = 1779409061
     while True:
