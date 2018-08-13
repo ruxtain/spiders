@@ -17,6 +17,7 @@ POOL_SIZE = 10
 # 翻页上限
 PAGE = 50
 
+
 class MasterThread(threading.Thread):
 
     """
@@ -37,9 +38,7 @@ class MasterThread(threading.Thread):
             imgs = soup.select('div.chao div.yang > img.scaleimg')
             for img in imgs:
                 self.queue.put(img['src'])
-        # 不立即退出，而是等待队列为空
-        while not self.queue.empty():
-            break
+        self.queue.join()
 
 
 class SlaveThread(threading.Thread):
