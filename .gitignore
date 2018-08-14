@@ -4,6 +4,8 @@ __pycache__/
 *$py.class
 geckodriver.log
 .DS_Store
+/Users/michael/pro/spiders/DouyinSpider/downloads/
+*.ignore
 
 # C extensions
 *.so
