@@ -47,7 +47,7 @@ class SlaveThread(threading.Thread):
         下载并保存图片
     """
 
-    def __init__(self, queue, master):
+    def __init__(self, queue):
         self.queue = queue
         super(SlaveThread, self).__init__()
 
@@ -71,7 +71,7 @@ if __name__ == '__main__':
     master.start()
 
     for i in range(POOL_SIZE):
-        slave = SlaveThread(queue, master)
+        slave = SlaveThread(queue)
         slave.daemon = True
         slave.start()
 
