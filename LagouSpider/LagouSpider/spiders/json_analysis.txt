@@ -1,0 +1,11 @@
+#! /Users/michael/anaconda3/bin/python
+# @Date:   2018-08-26 15:18:19
+
+总工作数
+data['content']['positionResult']['totalCount']
+
+所有职位信息
+data['content']['positionResult']['result']
+
+所有 HR 信息
+data['content']['hrInfoMap']

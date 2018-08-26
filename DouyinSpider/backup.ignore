@@ -1,0 +1,65 @@
+def get_user_data(text):
+    try:
+        js = json.loads(text)
+        with open('完整.js', 'w') as f:
+            f.write()
+        comments = js['comments'] 
+    except KeyError:
+        print(text)
+        return
+    user_data = {}
+    for comment in comments:
+        user = comment['user'] # 用户信息
+        user_data['text'] = comment['text']
+        user_data['uid'] = user.get('uid') # 用户id
+        user_data['live_verify'] = user.get('live_verify') # 是否直播认证
+        user_data['is_gov_media_vip'] = user.get('is_gov_media_vip') # 是否是政府帐号
+        user_data['birthday'] = user.get('birthday') # 生日
+        user_data['constellation'] = user.get('constellation') # 星座 例如 10 代表摩羯座
+        user_data['is_binded_weibo'] = user.get('is_binded_weibo') # 是否绑定微博
+        user_data['region'] = user.get('region') # 国家/地区 CN
+        user_data['location'] = user.get('location') # 国家/地区 CN
+        user_data['avatar_thumb'] = user.get('avatar_thumb').get('url_list') # 头像缩略图链接，不知道为什么是一组
+        user_data['share_info'] = user.get('share_info').get('share_url') # 用户分享页
+        user_data['qrcode'] = user.get('share_info').get('share_qrcode_url').get('url_list') # 用户二维码
+        user_data['is_phone_binded'] = user.get('is_phone_binded') # 是否绑定电话
+        user_data['gender'] = user.get('gender') # 性别 1 为男性
+        user_data['avatar_larger'] = user.get('avatar_larger').get('url_list') # 用户头像大图
+        user_data['nickname'] = user.get('nickname') # 昵称
+        user_data['signature'] = user.get('signature') # 签名
+        yield user_data
+
+module.exports = {
+    summary: 'Filter douyin video links',
+    *beforeSendResponse(requestDetail, responseDetail) {
+
+        var fs = require('fs');
+        var logger = fs.createWriteStream(process.cwd() + '/urls.log', {flags: 'w'});
+    
+    // if (requestDetail.url.search(/dy\.ixigua\.com\/.*?video\//) >= 0) {
+
+    if (requestDetail.url.search(/ixigua/) >= 0) {        
+            logger.write(requestDetail.url + '\r\n');
+        }
+    },
+}
+
+抓包
+http://v3-dy.ixigua.com/41aadea402c848caadd363316bdc1534/5b6f6a8c/video/m/220ac4fca5c0d734e9e81551285ba5b9099115a25a400005d64531e35a9/
+
+浏览器1
+http://v3-dy.ixigua.com/dc5c085039a58e2ace6bc4af077ab74b/5b6f6c0c/video/m/220e1e0e6c4a91c4689ab8058ef4c77e7ff115a21c30000c55423b32f46/
+
+浏览器2
+http://v1-dy.ixigua.com/faad8803ed1dd73232f7571c0c8bcfbf/5b6f6c0d/video/m/220e1e0e6c4a91c4689ab8058ef4c77e7ff115a21c30000c55423b32f46/
+
+
+随便换一下试试
+http://v1-dy.ixigua.com/faad8803ed1dd73232f7571c0c8bcfbf/5b6f6c0d/video/m/220e1e0e6c4a91c4689ab8058ef4c77e7ff115a21c30000c55423b32f46/
+
+
+分享的链接：
+https://www.iesdouyin.com/share/video/6588328404934724867/?region=CN&mid=6542349354349366029&titleType=title&timestamp=1534025168
+
+简化后仍然有效：
+https://www.iesdouyin.com/share/video/6588328404934724867/?mid=6542349354349366029
