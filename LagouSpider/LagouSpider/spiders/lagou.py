@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from LagouSpider.items import PositionItem, DetailItem
+from urllib.parse import quote
 
 import scrapy
 import json
@@ -33,11 +34,14 @@ class LagouSpider(scrapy.Spider):
 
     def start_requests(self):
         """ 先只爬一页 """
-        url = 'https://www.lagou.com/jobs/positionAjax.json?city=%E6%B7%B1%E5%9C%B3&needAddtionalResult=false'
-        for pn in range(40, 201):
+
+        city = '深圳'
+        keyword = '数据分析'
+        url = 'https://www.lagou.com/jobs/positionAjax.json?city={}&needAddtionalResult=false'
+        for pn in range(1, 10):
             yield scrapy.FormRequest(
-                url = url,
-                formdata = {'first': 'true', 'pn': str(pn), 'kd': 'python'},
+                url = url.format(quote(city)),
+                formdata = {'first': 'true', 'pn': str(pn), 'kd': keyword},
                 callback = self.parse_page,
                 dont_filter=True # 链接是一样的，只是 post 的 data 不同，所以不要过滤
             )
@@ -64,8 +68,6 @@ class LagouSpider(scrapy.Spider):
         positionId = response.meta['positionId']
         paragraphs = response.xpath('//dd[@class="job_bt"]/div/p/text()').extract()
         job_detail = '\n'.join(paragraphs)
-
-        '\n'.join(response.xpath('//dd[@class="job_bt"]/div/p/text()').extract())
 
         item['positionId'] = positionId
         item['job_detail'] = job_detail

@@ -82,24 +82,15 @@ DETAIL_REQUEST_HEADERS = {
               ' gate_login_token=3426bce7c3aa91eec701c73101f84e2c7ca7b33483e39ba5;'
               ' LGRID=20180122060053-8c9fb52e-fef6-11e7-a59f-5254005c3644; '
               'Hm_lpvt_4233e74dff0ae5bd0a3d81c6ccf756e6=1516572053; '
-              'TG-TRACK-CODE=index_navigation; SEARCH_ID=a39c9c98259643d085e917c740303cc7',    
-    # 'Cookie':   'JSESSIONID=ABAAABAAAIAACBI3D96E6D6B3F7D9F3E207C0A7BAB25995; '
-    #             'user_trace_token=20180826191649-2087cbfa-d7cf-4eaa-aa26-4d79410bcc3b; '
-    #             'Hm_lvt_4233e74dff0ae5bd0a3d81c6ccf756e6=1535282211; '
-    #             '_ga=GA1.2.941416926.1535282211; _gid=GA1.2.1715717775.1535282211; '
-    #             'LGSID=20180826191650-878bb32e-a921-11e8-b1c1-5254005c3644; '
-    #             'PRE_UTM=; PRE_HOST=; PRE_SITE=; '
-    #             'PRE_LAND=https%3A%2F%2Fwww.lagou.com%2Fjobs%2F5029146.html; '
-    #             'LGUID=20180826191650-878bb6c6-a921-11e8-b1c1-5254005c3644; '
-    #             'Hm_lpvt_4233e74dff0ae5bd0a3d81c6ccf756e6=1535282238; '
-    #             'LGRID=20180826191717-9788f12c-a921-11e8-b6a0-525400f775ce',
+              'TG-TRACK-CODE=index_navigation; SEARCH_ID=a39c9c98259643d085e917c740303cc7',
 }
 
 # 数据库配置
 
 MONGO_URI = 'mongodb://localhost:27017'
 MONGO_DATABASE = 'lagou'
-MONGO_COLLECTION = 'jobs'
+# MONGO_COLLECTION = 'jobs'
+MONGO_COLLECTION = 'data'
 
 # See https://doc.scrapy.org/en/latest/topics/downloader-middleware.html
 DOWNLOADER_MIDDLEWARES = {
