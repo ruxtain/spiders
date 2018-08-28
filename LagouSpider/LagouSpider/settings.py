@@ -89,8 +89,8 @@ DETAIL_REQUEST_HEADERS = {
 
 MONGO_URI = 'mongodb://localhost:27017'
 MONGO_DATABASE = 'lagou'
-# MONGO_COLLECTION = 'jobs'
-MONGO_COLLECTION = 'data'
+MONGO_COLLECTION = 'jobs'
+# MONGO_COLLECTION = 'data'
 
 # See https://doc.scrapy.org/en/latest/topics/downloader-middleware.html
 DOWNLOADER_MIDDLEWARES = {
@@ -144,4 +144,4 @@ HTTPCACHE_ENABLED = False
 
 
 # 第三方
-RANDOM_UA_TYPE = "random"
+# RANDOM_UA_TYPE = "random"
