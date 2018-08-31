@@ -13,7 +13,7 @@ run 协程用于读取 urls_queue 队列并解析新的 url 放入 urls_queue
 fetch_image 协程读取 images_queue，并下载图片
 
 为了不让部分页面的错误响应导致爬虫挂掉，加入了异常处理
-为了不爬取 url 和图片，使用了布隆过滤器 (http://axiak.github.io/pybloomfiltermmap/)。
+为了不爬取重复的 url 和图片，使用了布隆过滤器。
 
 """
 
@@ -155,27 +155,14 @@ url_file = 'spider.url'
 urls_queue = asyncio.Queue()
 images_queue = asyncio.Queue()
 
+# 注册事件到时间循环
 asyncio.ensure_future(init(urls_queue))
 asyncio.ensure_future(fetch_image(images_queue))
 asyncio.ensure_future(run(urls_queue, images_queue))
 
+# 启动爬虫
 with Bloom(bloom_file) as bloom, Starter(url_file) as starter:
     loop = asyncio.get_event_loop()
     loop.run_forever()
-
-
-if __name__ == '__main__':
-    main()
-
-
-
-
-
-
-
-
-
-
-
 
 
