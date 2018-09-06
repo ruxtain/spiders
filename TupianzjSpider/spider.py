@@ -55,7 +55,6 @@ async def fetch_image(images_queue):
 
 
 async def run(urls_queue, images_queue):
-    """ 还没有对 url 去重 """
     sem = asyncio.Semaphore(30)
     async with sem:
         async with aiohttp.ClientSession() as session:
