@@ -33,7 +33,10 @@ class LagouSpider(scrapy.Spider):
     allowed_domains = ['www.lagou.com']
 
     def start_requests(self):
-        """ 先只爬一页 """
+        """ 
+        city: 修改城市
+        keyword: 修改关键词
+        """
 
         city = '深圳'
         keyword = '数据分析'
