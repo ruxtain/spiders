@@ -1,21 +1,6 @@
 #! /Users/michael/anaconda3/bin/python
 # @Date:   2018-08-31 15:51:04
 
-"""
-
-思路:
-
-3个协程函数，2个队列。
-
-init 协程用于初始化 urls_queue 队列
-run 协程用于读取 urls_queue 队列并解析新的 url 放入 urls_queue
-    如果是页面的大图，则放入 images_queue
-fetch_image 协程读取 images_queue，并下载图片
-
-为了不让部分页面的错误响应导致爬虫挂掉，加入了异常处理
-为了不爬取重复的 url 和图片，使用了布隆过滤器。
-
-"""
 
 import os
 import asyncio
@@ -80,7 +65,7 @@ payload_data = {
 db = pymongo.MongoClient()['indiegogo']
 col = db['col']
 
-# 去重索引
+# 确保 project_id 字段没有重复值
 col.create_index([("project_id", pymongo.ASCENDING)], unique=True)
 
 # 注册事件到时间循环

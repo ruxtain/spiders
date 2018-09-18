@@ -7,6 +7,10 @@ __pycache__/
 media/
 test-.*
 test_.*
+IndiegogoSpider/test_anyproxy.py
+IndiegogoSpider/test_db.py
+IndiegogoSpider/test_json.py
+IndiegogoSpider/test_request.py
 geckodriver.log
 migrations/
 # C extensions
