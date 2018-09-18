@@ -1,7 +1,6 @@
 #! /Users/michael/anaconda3/bin/python
 # @Date:   2018-08-31 15:51:04
 
-
 import os
 import asyncio
 import aiohttp
@@ -12,7 +11,12 @@ import pymongo
 
 def save_to_mongo(content):
     content = json.loads(content)
-    for project in content['response']['discoverables']:
+    try:
+        projects = content['response']['discoverables']
+    except KeyError:
+        print("It's most likely that the scraping is already done.")
+        exit(0)
+    for project in projects:
         print('saving "%s"' % project['title'])
         try:
             col.insert(project)
@@ -61,17 +65,20 @@ payload_data = {
     "tags": []
 }
 
-# 数据库连接
+# Starting Page
+page = 1
+
+# Connect to mongo
 db = pymongo.MongoClient()['indiegogo']
 col = db['col']
 
-# 确保 project_id 字段没有重复值
+# Make sure project_id field has only unique values
 col.create_index([("project_id", pymongo.ASCENDING)], unique=True)
 
-# 注册事件到时间循环
-future = asyncio.ensure_future(fetch(1))
+# register the event to the loop
+future = asyncio.ensure_future(fetch(page))
 
-# 启动爬虫
+# let's get started!
 loop = asyncio.get_event_loop()
 loop.run_until_complete(future)
 
