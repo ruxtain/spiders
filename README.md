@@ -14,7 +14,7 @@ $ python spider.py
 # 爬虫简介
 
 | 名称 | 中文名 |
-|---|---|---|
+|---|---|
 |DouyinSpider| 抖音爬虫|
 |GovStatsSpider|国家统计局爬虫|
 |HuabanSpider|花瓣网爬虫|
